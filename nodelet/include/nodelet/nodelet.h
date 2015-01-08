@@ -152,6 +152,7 @@ private:
 
   // Method to be overridden by subclass when starting up.
   virtual void onInit() = 0;
+  virtual void onUnload() = 0;
 
   // Public API used for launching
 public:
@@ -166,6 +167,8 @@ public:
   void init(const std::string& name, const M_string& remapping_args, const V_string& my_argv,
             ros::CallbackQueueInterface* st_queue = NULL,
             ros::CallbackQueueInterface* mt_queue = NULL);
+
+  void unload();
 
   virtual ~Nodelet();
 };

@@ -45,6 +45,11 @@ private:
   {
     throw std::runtime_error("Initialization error");
   }
+
+  virtual void onUnload()
+  {
+
+  }
 };
 
 PLUGINLIB_DECLARE_CLASS(test_nodelet, FailingNodelet, test_nodelet::FailingNodelet, nodelet::Nodelet);

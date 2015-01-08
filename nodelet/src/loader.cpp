@@ -318,6 +318,12 @@ bool Loader::unload (const std::string & name)
   Impl::M_stringToNodelet::iterator it = impl_->nodelets_.find(name);
   if (it != impl_->nodelets_.end())
   {
+    try {
+      it->second->nodelet->unload();
+    }
+    catch (...) {
+      ROS_DEBUG ("Failed to cleanup nodelet %s", name.c_str ());
+    }
     impl_->nodelets_.erase(it);
     ROS_DEBUG ("Done unloading nodelet %s", name.c_str ());
     return (true);

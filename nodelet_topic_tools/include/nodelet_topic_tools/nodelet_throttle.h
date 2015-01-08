@@ -84,6 +84,12 @@ private:
     pub_ = nh_.advertise(publisher_ao);
   };
 
+
+  virtual void onUnload()
+  {
+
+  }
+
   void callback(const boost::shared_ptr<const M>& cloud)
   {
     if (max_update_rate_ > 0.0)

@@ -164,6 +164,11 @@ namespace nodelet
         ts_->registerCallback (boost::bind (&NodeletMUX<T,Filter>::input, this, _1, _2, _3, _4, _5, _6, _7, _8));
       }
 
+      virtual void onUnload()
+      {
+
+      }
+
     private:
 
       void

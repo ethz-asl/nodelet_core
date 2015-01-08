@@ -133,4 +133,12 @@ void Nodelet::init(const std::string& name, const M_string& remapping_args, cons
   this->onInit ();
 }
 
+void Nodelet::unload() {
+  NODELET_DEBUG ("Nodelet unload");
+  if (inited_)
+  {
+    this->onUnload();
+  }
+}
+
 } // namespace nodelet

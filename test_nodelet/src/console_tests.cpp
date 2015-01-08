@@ -117,6 +117,11 @@ private:
     
   }
 
+  virtual void onUnload()
+  {
+
+  }
+
 };
 
 PLUGINLIB_DECLARE_CLASS(test_nodelet, ConsoleTest, test_nodelet::ConsoleTest, nodelet::Nodelet);

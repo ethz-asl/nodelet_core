@@ -250,6 +250,7 @@ sig_atomic_t volatile request_shutdown = 0;
 
 void nodeletLoaderSigIntHandler(int sig)
 {
+  ROS_DEBUG("Called nodeletLoaderSigIntHandler in nodelet: %s\n",ros::this_node::getName().c_str());
   request_shutdown = 1;
 }
 
@@ -342,6 +343,7 @@ int
       usleep(100000);
     }
     // Attempt to unload the nodelet before shutting down ROS
+    ROS_DEBUG("Attempt to unload the nodelet before shutting down ROS");
     ni.unloadNodelet(name, manager);
     if (arg_parser.isBondEnabled())
       bond.breakBond();

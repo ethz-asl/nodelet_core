@@ -55,6 +55,11 @@ private:
     sub = private_nh.subscribe("in", 10, &Plus::callback, this);
   }
 
+  virtual void onUnload()
+  {
+
+  }
+
   void callback(const std_msgs::Float64::ConstPtr& input)
   {
     std_msgs::Float64Ptr output(new std_msgs::Float64());
