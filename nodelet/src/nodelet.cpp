@@ -287,10 +287,21 @@ void shutdownCallbackManager(XmlRpc::XmlRpcValue& params, XmlRpc::XmlRpcValue& r
     std::string reason = params[1];
     ROS_WARN("Shutdown request received. Reason: [%s]", reason.c_str());
     request_shutdown = 1;
-    ros::requestShutdown();
+    //ros::requestShutdown();
+    //ros::shutdown();
   }
 
   result = ros::xmlrpc::responseInt(1, "", 0);
+}
+
+void atexitCallbackManager()
+{
+  std::cout << "atexitCallbackManager" << std::endl;
+  if (ros::ok() && !ros::isShuttingDown())
+  {
+    ROS_INFO("Reactor: shutting down due to exit() or end of main() without cleanup of all NodeHandles");
+    ros::shutdown();
+  }
 }
 
 /* ---[ */
@@ -310,12 +321,13 @@ int
   if (command == "manager")
   {
     ros::init (argc, argv, "manager");
-    //signal(SIGINT, nodeletLoaderSigIntHandler);
-    ros::XMLRPCManager::instance()->unbind("shutdown");
-    ros::XMLRPCManager::instance()->bind("shutdown", shutdownCallbackManager);
-
+    signal(SIGINT, nodeletLoaderSigIntHandler);
+//    ros::XMLRPCManager::instance()->unbind("shutdown");
+//    ros::XMLRPCManager::instance()->bind("shutdown", shutdownCallbackManager);
+    //atexit(atexitCallbackManager);
     nodelet::Loader n;
     ros::spin ();
+
     std::vector<std::string> nodelets =  n.listLoadedNodelets();
     std::vector<std::string>::iterator it = nodelets.begin();
     for (; it != nodelets.end(); ++it)
